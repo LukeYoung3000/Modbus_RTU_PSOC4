@@ -1,0 +1,4 @@
+omegacn7500
+minimalmodbus
+dummy_serial
+eurotherm3500

@@ -1,0 +1,179 @@
+Metadata-Version: 1.1
+Name: MinimalModbus
+Version: 0.7
+Summary: Easy-to-use Modbus RTU and Modbus ASCII implementation for Python
+Home-page: https://github.com/pyhys/minimalmodbus
+Author: Jonas Berg
+Author-email: pyhys@users.sourceforge.net
+License: Apache License, Version 2.0
+Description: ===============================
+        MinimalModbus
+        ===============================
+        
+        .. image:: https://img.shields.io/travis/pyhys/minimalmodbus.svg
+                :target: https://travis-ci.org/pyhys/minimalmodbus
+                :alt: Build Status
+        
+        .. image:: https://readthedocs.org/projects/minimalmodbus/badge/?version=master
+                :target: https://readthedocs.org/projects/minimalmodbus/?badge=master
+                :alt: Documentation Status
+        
+        .. image:: https://img.shields.io/pypi/v/minimalmodbus.svg
+                :target: https://pypi.python.org/pypi/minimalmodbus
+                :alt: PyPI page link
+        
+        .. image:: https://codecov.io/github/pyhys/minimalmodbus/coverage.svg?branch=master
+                :target: https://codecov.io/github/pyhys/minimalmodbus?branch=master
+                :alt: Test coverage report
+        
+        
+        Easy-to-use Modbus RTU and Modbus ASCII implementation for Python.
+        
+        Web resources
+        -------------
+        
+        * **Documentation**: https://minimalmodbus.readthedocs.org.
+        * Source code on **GitHub**: https://github.com/pyhys/minimalmodbus
+        * Python package index (PyPI) with download: https://pypi.python.org/pypi/MinimalModbus/ 
+        
+        Other web pages:
+        
+        * Readthedocs project page: https://readthedocs.org/projects/minimalmodbus/
+        * Travis CI build status page: https://travis-ci.org/pyhys/minimalmodbus
+        * codecov.io project page: https://codecov.io/github/pyhys/minimalmodbus
+        
+        Obsolete web pages:
+        
+        * Old Sourceforge documentation page: http://minimalmodbus.sourceforge.net/
+        * Old Sourceforge project page: http://sourceforge.net/projects/minimalmodbus
+        * Old Sourceforge repository: http://sourceforge.net/p/minimalmodbus/code/
+        
+        
+        Features
+        --------
+        MinimalModbus is an easy-to-use Python module for talking to instruments (slaves) 
+        from a computer (master) using the Modbus protocol, and is intended to be running on the master. 
+        Example code includes drivers for Eurotherm and Omega process controllers. 
+        The only dependence is the pySerial module (also pure Python). 
+        
+        This software supports the 'Modbus RTU' and 'Modbus ASCII' serial communication versions of the protocol, 
+        and is intended for use on Linux, OS X and Windows platforms. 
+        It is open source, and has the Apache License, Version 2.0. 
+        
+        Tested with Python 2.7, 3.2, 3.3 and 3.4.
+        
+        
+        
+        
+        
+        History
+        =======
+        
+        
+        Release 0.7 (2015-07-30)
+        -------------------------
+        * Faster CRC calculation by using a lookup table (thanks to Peter)
+        * Handling of local echo (thanks to Luca Di Gregorio)
+        * Improved behavior of dummy_serial (number of bytes to read)
+        * Improved debug messages (thanks to Dino)
+        * Using project setup by the cookie-cutter tool.
+        * Reshuffled source files and documentation.
+        * Moved source to Github from Sourceforge.
+        * Moved documentation to readthedocs.org
+        * Using the tox tool for testing on multiple Python versions.
+        * Using Travis CI test framework
+        * Using codecov.io code coverage measurement framework
+        * Added support for Python 3.3 and 3.4.
+        * Dropped support for Python 2.6.
+        
+        
+        Release 0.6 (2014-06-22)
+        --------------------------
+        * Support for Modbus ASCII mode.
+        
+        
+        Release 0.5 (2014-03-23)
+        --------------------------
+        * Precalculating number of bytes to read, in order to increase the speed.
+        * Better handling of several instruments on the same serial port, especially 
+          for Windows.
+        * Improved timing for better compliance with Modbus timing requirements.
+        
+        
+        Release 0.4 (2012-09-08)
+        --------------------------
+        * Read and write multiple registers.
+        * Read and write floating point values.
+        * Read and write long integers.
+        * Read and write strings.
+        * Support for negative numbers.
+        * Use of the Python struct module instead of own bit-tweaking internally.
+        * Improved documentation.
+        
+        
+        Release 0.3.2 (2012-01-25)
+        --------------------------
+        * Fine-tuned setup.py for smoother installation.
+        * Improved documentation.
+        
+        
+        Release 0.3.1 (2012-01-24)
+        --------------------------
+        * Improved requirements handling in setup.py
+        * Adjusted MANIFEST.in not to include doc/_templates
+        * Adjusted RST text formatting in README.txt
+        
+        
+        Release 0.3 (2012-01-23)
+        ------------------------
+        This is a major rewrite, but the API is backward compatible.
+        
+        * Extended functionality to support more Modbus function codes.
+        * Option to close the serial port after each call (useful for Windows XP etc).
+        * Diagnostic string output available (for support).
+        * Debug mode available.
+        * Improved __repr__ for Instrument instances.
+        * Improved Python3 compatibility.
+        * Improved validity checking for function arguments.
+        * The error messages are made more informative.
+        * The new example driver omegacn7500 is included.
+        * Unit tests included in the distribution.
+        * A dummy serial port for unit testing is provided (including recorded communication data).
+        * Updated documentation.
+        
+        
+        Release 0.2 (2011-08-19)
+        ------------------------
+        * Changes in how to reference the serial port. 
+        * Updated documentation.
+        
+        
+        Release 0.1 (2011-06-16)
+        ------------------------
+        * First public release.
+        
+Keywords: minimalmodbus modbus serial RTU ASCII
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Manufacturing
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.2
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Topic :: Communications
+Classifier: Topic :: Home Automation
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Hardware :: Hardware Drivers
+Classifier: Topic :: Terminals :: Serial

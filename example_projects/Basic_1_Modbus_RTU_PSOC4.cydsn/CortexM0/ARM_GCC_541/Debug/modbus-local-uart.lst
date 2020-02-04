@@ -1,0 +1,1376 @@
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"modbus-local-uart.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.rs485_rx_isr,"ax",%progbits
+  20              		.align	2
+  21              		.global	rs485_rx_isr
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	rs485_rx_isr, %function
+  25              	rs485_rx_isr:
+  26              	.LFB32:
+  27              		.file 1 "..\\..\\src\\modbus-local-uart.c"
+   1:..\..\src/modbus-local-uart.c **** /**
+   2:..\..\src/modbus-local-uart.c ****  * @file    modbus-local-uart.c
+   3:..\..\src/modbus-local-uart.c ****  * @brief   Provides modbus-local.h with local UART function defintions
+   4:..\..\src/modbus-local-uart.c ****  * @author  Luke Young (L S Young Electrical)
+   5:..\..\src/modbus-local-uart.c ****  * 
+   6:..\..\src/modbus-local-uart.c ****  * Slightly amended version of 
+   7:..\..\src/modbus-local-uart.c ****  * uC_Modbus by Kim Taylor <https://github.com/kmtaylor>
+   8:..\..\src/modbus-local-uart.c ****  * 
+   9:..\..\src/modbus-local-uart.c ****  * Based on libmodbus by Stéphane Raimbault <stephane.raimbault@gmail.com>
+  10:..\..\src/modbus-local-uart.c ****  *
+  11:..\..\src/modbus-local-uart.c ****  * @copyright
+  12:..\..\src/modbus-local-uart.c ****  * This library is free software; you can redistribute it and/or
+  13:..\..\src/modbus-local-uart.c ****  * modify it under the terms of the GNU Lesser General Public
+  14:..\..\src/modbus-local-uart.c ****  * License as published by the Free Software Foundation; either
+  15:..\..\src/modbus-local-uart.c ****  * version 2.1 of the License, or (at your option) any later version.
+  16:..\..\src/modbus-local-uart.c ****  * 
+  17:..\..\src/modbus-local-uart.c ****  * This library is distributed in the hope that it will be useful,
+  18:..\..\src/modbus-local-uart.c ****  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  19:..\..\src/modbus-local-uart.c ****  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  20:..\..\src/modbus-local-uart.c ****  * Lesser General Public License for more details.
+  21:..\..\src/modbus-local-uart.c ****  * 
+  22:..\..\src/modbus-local-uart.c ****  * @details
+  23:..\..\src/modbus-local-uart.c ****  * This file defines the UART related functions used by modbus.h/c and 
+  24:..\..\src/modbus-local-uart.c ****  * modbus-local.h . The functions are all specfic to the PSOC 4200 micro
+  25:..\..\src/modbus-local-uart.c ****  * controller and require the UART component in the PSOC creator 
+  26:..\..\src/modbus-local-uart.c ****  * project to have the exact name "RS485" additionally, the attached 
+  27:..\..\src/modbus-local-uart.c ****  * rx interrupt MUST be named "RS485_RX_ISR".
+  28:..\..\src/modbus-local-uart.c ****  * 
+  29:..\..\src/modbus-local-uart.c ****  * In order to buffer/store incoming UART data this file uses the ring_buf_s
+  30:..\..\src/modbus-local-uart.c ****  * data type from Kim Taylor's ringbuffer.h .
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 2
+
+
+  31:..\..\src/modbus-local-uart.c ****  * 
+  32:..\..\src/modbus-local-uart.c ****  * When porting the libray, all the functions in this this file 
+  33:..\..\src/modbus-local-uart.c ****  * MUST be adapted to the API of the micro controller architecture you are
+  34:..\..\src/modbus-local-uart.c ****  * useing.
+  35:..\..\src/modbus-local-uart.c ****  */
+  36:..\..\src/modbus-local-uart.c **** 
+  37:..\..\src/modbus-local-uart.c **** #include "modbus-local.h"
+  38:..\..\src/modbus-local-uart.c **** #include "ringbuffer.h"
+  39:..\..\src/modbus-local-uart.c **** 
+  40:..\..\src/modbus-local-uart.c **** volatile struct ring_buf_s rs_rd_buf = {0};
+  41:..\..\src/modbus-local-uart.c **** 
+  42:..\..\src/modbus-local-uart.c **** CY_ISR(rs485_rx_isr)
+  43:..\..\src/modbus-local-uart.c **** {
+  28              		.loc 1 43 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  44:..\..\src/modbus-local-uart.c ****     while (RS485_GetRxBufferSize())
+  36              		.loc 1 44 0
+  37 0002 0CE0     		b	.L2
+  38              	.L4:
+  45:..\..\src/modbus-local-uart.c ****     {
+  46:..\..\src/modbus-local-uart.c ****         if (ring_buf_full(&rs_rd_buf))
+  39              		.loc 1 46 0
+  40 0004 0848     		ldr	r0, .L5
+  41 0006 FFF7FEFF 		bl	ring_buf_full
+  42              	.LVL0:
+  43 000a 0028     		cmp	r0, #0
+  44 000c 0BD1     		bne	.L1
+  47:..\..\src/modbus-local-uart.c ****             break;
+  48:..\..\src/modbus-local-uart.c ****         ring_buf_in(&rs_rd_buf, RS485_ReadRxData());
+  45              		.loc 1 48 0
+  46 000e FFF7FEFF 		bl	RS485_ReadRxData
+  47              	.LVL1:
+  48 0012 0100     		movs	r1, r0
+  49 0014 0448     		ldr	r0, .L5
+  50 0016 FFF7FEFF 		bl	ring_buf_in
+  51              	.LVL2:
+  49:..\..\src/modbus-local-uart.c ****         modbus_timer_reset();
+  52              		.loc 1 49 0
+  53 001a FFF7FEFF 		bl	modbus_timer_reset
+  54              	.LVL3:
+  55              	.L2:
+  44:..\..\src/modbus-local-uart.c ****     {
+  56              		.loc 1 44 0
+  57 001e FFF7FEFF 		bl	RS485_GetRxBufferSize
+  58              	.LVL4:
+  59 0022 0028     		cmp	r0, #0
+  60 0024 EED1     		bne	.L4
+  61              	.L1:
+  50:..\..\src/modbus-local-uart.c ****     }
+  51:..\..\src/modbus-local-uart.c **** }
+  62              		.loc 1 51 0
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 3
+
+
+  63              		@ sp needed
+  64 0026 10BD     		pop	{r4, pc}
+  65              	.L6:
+  66              		.align	2
+  67              	.L5:
+  68 0028 00000000 		.word	.LANCHOR0
+  69              		.cfi_endproc
+  70              	.LFE32:
+  71              		.size	rs485_rx_isr, .-rs485_rx_isr
+  72              		.section	.text._modbus_UART_init,"ax",%progbits
+  73              		.align	2
+  74              		.global	_modbus_UART_init
+  75              		.code	16
+  76              		.thumb_func
+  77              		.type	_modbus_UART_init, %function
+  78              	_modbus_UART_init:
+  79              	.LFB33:
+  52:..\..\src/modbus-local-uart.c **** 
+  53:..\..\src/modbus-local-uart.c **** void _modbus_UART_init(void)
+  54:..\..\src/modbus-local-uart.c **** {
+  80              		.loc 1 54 0
+  81              		.cfi_startproc
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 0, uses_anonymous_args = 0
+  84 0000 10B5     		push	{r4, lr}
+  85              		.cfi_def_cfa_offset 8
+  86              		.cfi_offset 4, -8
+  87              		.cfi_offset 14, -4
+  55:..\..\src/modbus-local-uart.c ****     RS485_Start();
+  88              		.loc 1 55 0
+  89 0002 FFF7FEFF 		bl	RS485_Start
+  90              	.LVL5:
+  56:..\..\src/modbus-local-uart.c ****     RS485_RX_ISR_StartEx(rs485_rx_isr);
+  91              		.loc 1 56 0
+  92 0006 0248     		ldr	r0, .L8
+  93 0008 FFF7FEFF 		bl	RS485_RX_ISR_StartEx
+  94              	.LVL6:
+  57:..\..\src/modbus-local-uart.c **** }
+  95              		.loc 1 57 0
+  96              		@ sp needed
+  97 000c 10BD     		pop	{r4, pc}
+  98              	.L9:
+  99 000e C046     		.align	2
+ 100              	.L8:
+ 101 0010 00000000 		.word	rs485_rx_isr
+ 102              		.cfi_endproc
+ 103              	.LFE33:
+ 104              		.size	_modbus_UART_init, .-_modbus_UART_init
+ 105              		.section	.text.modbus_get_byte,"ax",%progbits
+ 106              		.align	2
+ 107              		.global	modbus_get_byte
+ 108              		.code	16
+ 109              		.thumb_func
+ 110              		.type	modbus_get_byte, %function
+ 111              	modbus_get_byte:
+ 112              	.LFB34:
+  58:..\..\src/modbus-local-uart.c **** 
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 4
+
+
+  59:..\..\src/modbus-local-uart.c **** uint8_t modbus_get_byte(void)
+  60:..\..\src/modbus-local-uart.c **** {
+ 113              		.loc 1 60 0
+ 114              		.cfi_startproc
+ 115              		@ args = 0, pretend = 0, frame = 0
+ 116              		@ frame_needed = 0, uses_anonymous_args = 0
+ 117 0000 10B5     		push	{r4, lr}
+ 118              		.cfi_def_cfa_offset 8
+ 119              		.cfi_offset 4, -8
+ 120              		.cfi_offset 14, -4
+  61:..\..\src/modbus-local-uart.c ****     uint8_t byte;
+  62:..\..\src/modbus-local-uart.c ****     RS485_RX_ISR_Disable();
+ 121              		.loc 1 62 0
+ 122 0002 FFF7FEFF 		bl	RS485_RX_ISR_Disable
+ 123              	.LVL7:
+  63:..\..\src/modbus-local-uart.c ****     byte = ring_buf_out(&rs_rd_buf);
+ 124              		.loc 1 63 0
+ 125 0006 0448     		ldr	r0, .L11
+ 126 0008 FFF7FEFF 		bl	ring_buf_out
+ 127              	.LVL8:
+ 128 000c 0400     		movs	r4, r0
+ 129              	.LVL9:
+  64:..\..\src/modbus-local-uart.c ****     RS485_RX_ISR_Enable();
+ 130              		.loc 1 64 0
+ 131 000e FFF7FEFF 		bl	RS485_RX_ISR_Enable
+ 132              	.LVL10:
+  65:..\..\src/modbus-local-uart.c ****     return byte;
+  66:..\..\src/modbus-local-uart.c **** }
+ 133              		.loc 1 66 0
+ 134 0012 2000     		movs	r0, r4
+ 135              		@ sp needed
+ 136              	.LVL11:
+ 137 0014 10BD     		pop	{r4, pc}
+ 138              	.L12:
+ 139 0016 C046     		.align	2
+ 140              	.L11:
+ 141 0018 00000000 		.word	.LANCHOR0
+ 142              		.cfi_endproc
+ 143              	.LFE34:
+ 144              		.size	modbus_get_byte, .-modbus_get_byte
+ 145              		.section	.text.modbus_read_ready,"ax",%progbits
+ 146              		.align	2
+ 147              		.global	modbus_read_ready
+ 148              		.code	16
+ 149              		.thumb_func
+ 150              		.type	modbus_read_ready, %function
+ 151              	modbus_read_ready:
+ 152              	.LFB35:
+  67:..\..\src/modbus-local-uart.c **** 
+  68:..\..\src/modbus-local-uart.c **** uint8_t modbus_read_ready(void)
+  69:..\..\src/modbus-local-uart.c **** {
+ 153              		.loc 1 69 0
+ 154              		.cfi_startproc
+ 155              		@ args = 0, pretend = 0, frame = 0
+ 156              		@ frame_needed = 0, uses_anonymous_args = 0
+ 157 0000 10B5     		push	{r4, lr}
+ 158              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 5
+
+
+ 159              		.cfi_offset 4, -8
+ 160              		.cfi_offset 14, -4
+  70:..\..\src/modbus-local-uart.c ****     uint8_t status;
+  71:..\..\src/modbus-local-uart.c ****     RS485_RX_ISR_Disable();
+ 161              		.loc 1 71 0
+ 162 0002 FFF7FEFF 		bl	RS485_RX_ISR_Disable
+ 163              	.LVL12:
+  72:..\..\src/modbus-local-uart.c ****     status = ring_buf_count(&rs_rd_buf);
+ 164              		.loc 1 72 0
+ 165 0006 0448     		ldr	r0, .L14
+ 166 0008 FFF7FEFF 		bl	ring_buf_count
+ 167              	.LVL13:
+ 168 000c 0400     		movs	r4, r0
+ 169              	.LVL14:
+  73:..\..\src/modbus-local-uart.c ****     RS485_RX_ISR_Enable();
+ 170              		.loc 1 73 0
+ 171 000e FFF7FEFF 		bl	RS485_RX_ISR_Enable
+ 172              	.LVL15:
+  74:..\..\src/modbus-local-uart.c ****     return status;
+  75:..\..\src/modbus-local-uart.c **** }
+ 173              		.loc 1 75 0
+ 174 0012 2000     		movs	r0, r4
+ 175              		@ sp needed
+ 176              	.LVL16:
+ 177 0014 10BD     		pop	{r4, pc}
+ 178              	.L15:
+ 179 0016 C046     		.align	2
+ 180              	.L14:
+ 181 0018 00000000 		.word	.LANCHOR0
+ 182              		.cfi_endproc
+ 183              	.LFE35:
+ 184              		.size	modbus_read_ready, .-modbus_read_ready
+ 185              		.section	.text.modbus_write_data,"ax",%progbits
+ 186              		.align	2
+ 187              		.global	modbus_write_data
+ 188              		.code	16
+ 189              		.thumb_func
+ 190              		.type	modbus_write_data, %function
+ 191              	modbus_write_data:
+ 192              	.LFB36:
+  76:..\..\src/modbus-local-uart.c **** 
+  77:..\..\src/modbus-local-uart.c **** void modbus_write_data(uint8_t *_data, uint8_t length)
+  78:..\..\src/modbus-local-uart.c **** {
+ 193              		.loc 1 78 0
+ 194              		.cfi_startproc
+ 195              		@ args = 0, pretend = 0, frame = 0
+ 196              		@ frame_needed = 0, uses_anonymous_args = 0
+ 197              	.LVL17:
+ 198 0000 10B5     		push	{r4, lr}
+ 199              		.cfi_def_cfa_offset 8
+ 200              		.cfi_offset 4, -8
+ 201              		.cfi_offset 14, -4
+  79:..\..\src/modbus-local-uart.c ****     RS485_PutArray(_data, length);
+ 202              		.loc 1 79 0
+ 203 0002 FFF7FEFF 		bl	RS485_PutArray
+ 204              	.LVL18:
+  80:..\..\src/modbus-local-uart.c **** }...
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 6
+
+
+ 205              		.loc 1 80 0
+ 206              		@ sp needed
+ 207 0006 10BD     		pop	{r4, pc}
+ 208              		.cfi_endproc
+ 209              	.LFE36:
+ 210              		.size	modbus_write_data, .-modbus_write_data
+ 211              		.global	rs_rd_buf
+ 212              		.comm	_modbus_timer_finished,1,1
+ 213              		.bss
+ 214              		.align	2
+ 215              		.set	.LANCHOR0,. + 0
+ 216              		.type	rs_rd_buf, %object
+ 217              		.size	rs_rd_buf, 68
+ 218              	rs_rd_buf:
+ 219 0000 00000000 		.space	68
+ 219      00000000 
+ 219      00000000 
+ 219      00000000 
+ 219      00000000 
+ 220              		.text
+ 221              	.Letext0:
+ 222              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 223              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 224              		.file 4 "..\\..\\src\\ringbuffer.h"
+ 225              		.file 5 "..\\..\\src\\modbus-local.h"
+ 226              		.file 6 "Generated_Source\\PSoC4/RS485.h"
+ 227              		.file 7 "..\\..\\src\\modbus.h"
+ 228              		.file 8 "Generated_Source\\PSoC4/RS485_RX_ISR.h"
+ 229              		.section	.debug_info,"",%progbits
+ 230              	.Ldebug_info0:
+ 231 0000 2A030000 		.4byte	0x32a
+ 232 0004 0400     		.2byte	0x4
+ 233 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 234 000a 04       		.byte	0x4
+ 235 000b 01       		.uleb128 0x1
+ 236 000c ED010000 		.4byte	.LASF43
+ 237 0010 0C       		.byte	0xc
+ 238 0011 26030000 		.4byte	.LASF44
+ 239 0015 41000000 		.4byte	.LASF45
+ 240 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 241 001d 00000000 		.4byte	0
+ 242 0021 00000000 		.4byte	.Ldebug_line0
+ 243 0025 02       		.uleb128 0x2
+ 244 0026 01       		.byte	0x1
+ 245 0027 06       		.byte	0x6
+ 246 0028 44030000 		.4byte	.LASF0
+ 247 002c 03       		.uleb128 0x3
+ 248 002d 00000000 		.4byte	.LASF9
+ 249 0031 02       		.byte	0x2
+ 250 0032 1D       		.byte	0x1d
+ 251 0033 37000000 		.4byte	0x37
+ 252 0037 02       		.uleb128 0x2
+ 253 0038 01       		.byte	0x1
+ 254 0039 08       		.byte	0x8
+ 255 003a F1000000 		.4byte	.LASF1
+ 256 003e 02       		.uleb128 0x2
+ 257 003f 02       		.byte	0x2
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 7
+
+
+ 258 0040 05       		.byte	0x5
+ 259 0041 DF020000 		.4byte	.LASF2
+ 260 0045 02       		.uleb128 0x2
+ 261 0046 02       		.byte	0x2
+ 262 0047 07       		.byte	0x7
+ 263 0048 29010000 		.4byte	.LASF3
+ 264 004c 02       		.uleb128 0x2
+ 265 004d 04       		.byte	0x4
+ 266 004e 05       		.byte	0x5
+ 267 004f 18030000 		.4byte	.LASF4
+ 268 0053 02       		.uleb128 0x2
+ 269 0054 04       		.byte	0x4
+ 270 0055 07       		.byte	0x7
+ 271 0056 11010000 		.4byte	.LASF5
+ 272 005a 02       		.uleb128 0x2
+ 273 005b 08       		.byte	0x8
+ 274 005c 05       		.byte	0x5
+ 275 005d 9A020000 		.4byte	.LASF6
+ 276 0061 02       		.uleb128 0x2
+ 277 0062 08       		.byte	0x8
+ 278 0063 07       		.byte	0x7
+ 279 0064 A3010000 		.4byte	.LASF7
+ 280 0068 04       		.uleb128 0x4
+ 281 0069 04       		.byte	0x4
+ 282 006a 05       		.byte	0x5
+ 283 006b 696E7400 		.ascii	"int\000"
+ 284 006f 02       		.uleb128 0x2
+ 285 0070 04       		.byte	0x4
+ 286 0071 07       		.byte	0x7
+ 287 0072 96010000 		.4byte	.LASF8
+ 288 0076 03       		.uleb128 0x3
+ 289 0077 BA010000 		.4byte	.LASF10
+ 290 007b 03       		.byte	0x3
+ 291 007c 18       		.byte	0x18
+ 292 007d 2C000000 		.4byte	0x2c
+ 293 0081 02       		.uleb128 0x2
+ 294 0082 04       		.byte	0x4
+ 295 0083 04       		.byte	0x4
+ 296 0084 CB000000 		.4byte	.LASF11
+ 297 0088 02       		.uleb128 0x2
+ 298 0089 08       		.byte	0x8
+ 299 008a 04       		.byte	0x4
+ 300 008b 5E010000 		.4byte	.LASF12
+ 301 008f 02       		.uleb128 0x2
+ 302 0090 01       		.byte	0x1
+ 303 0091 08       		.byte	0x8
+ 304 0092 21030000 		.4byte	.LASF13
+ 305 0096 02       		.uleb128 0x2
+ 306 0097 08       		.byte	0x8
+ 307 0098 04       		.byte	0x4
+ 308 0099 7B020000 		.4byte	.LASF14
+ 309 009d 02       		.uleb128 0x2
+ 310 009e 04       		.byte	0x4
+ 311 009f 07       		.byte	0x7
+ 312 00a0 87020000 		.4byte	.LASF15
+ 313 00a4 05       		.uleb128 0x5
+ 314 00a5 04       		.byte	0x4
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 8
+
+
+ 315 00a6 76000000 		.4byte	0x76
+ 316 00aa 06       		.uleb128 0x6
+ 317 00ab A8020000 		.4byte	.LASF46
+ 318 00af 44       		.byte	0x44
+ 319 00b0 04       		.byte	0x4
+ 320 00b1 1B       		.byte	0x1b
+ 321 00b2 F3000000 		.4byte	0xf3
+ 322 00b6 07       		.uleb128 0x7
+ 323 00b7 62756600 		.ascii	"buf\000"
+ 324 00bb 04       		.byte	0x4
+ 325 00bc 1D       		.byte	0x1d
+ 326 00bd F3000000 		.4byte	0xf3
+ 327 00c1 00       		.byte	0
+ 328 00c2 08       		.uleb128 0x8
+ 329 00c3 19000000 		.4byte	.LASF16
+ 330 00c7 04       		.byte	0x4
+ 331 00c8 1E       		.byte	0x1e
+ 332 00c9 76000000 		.4byte	0x76
+ 333 00cd 40       		.byte	0x40
+ 334 00ce 08       		.uleb128 0x8
+ 335 00cf 90020000 		.4byte	.LASF17
+ 336 00d3 04       		.byte	0x4
+ 337 00d4 1F       		.byte	0x1f
+ 338 00d5 76000000 		.4byte	0x76
+ 339 00d9 41       		.byte	0x41
+ 340 00da 08       		.uleb128 0x8
+ 341 00db FF020000 		.4byte	.LASF18
+ 342 00df 04       		.byte	0x4
+ 343 00e0 20       		.byte	0x20
+ 344 00e1 76000000 		.4byte	0x76
+ 345 00e5 42       		.byte	0x42
+ 346 00e6 08       		.uleb128 0x8
+ 347 00e7 E9020000 		.4byte	.LASF19
+ 348 00eb 04       		.byte	0x4
+ 349 00ec 21       		.byte	0x21
+ 350 00ed 76000000 		.4byte	0x76
+ 351 00f1 43       		.byte	0x43
+ 352 00f2 00       		.byte	0
+ 353 00f3 09       		.uleb128 0x9
+ 354 00f4 76000000 		.4byte	0x76
+ 355 00f8 03010000 		.4byte	0x103
+ 356 00fc 0A       		.uleb128 0xa
+ 357 00fd 9D000000 		.4byte	0x9d
+ 358 0101 3F       		.byte	0x3f
+ 359 0102 00       		.byte	0
+ 360 0103 0B       		.uleb128 0xb
+ 361 0104 C2010000 		.4byte	.LASF20
+ 362 0108 01       		.byte	0x1
+ 363 0109 2A       		.byte	0x2a
+ 364 010a 00000000 		.4byte	.LFB32
+ 365 010e 2C000000 		.4byte	.LFE32-.LFB32
+ 366 0112 01       		.uleb128 0x1
+ 367 0113 9C       		.byte	0x9c
+ 368 0114 62010000 		.4byte	0x162
+ 369 0118 0C       		.uleb128 0xc
+ 370 0119 0A000000 		.4byte	.LVL0
+ 371 011d A9020000 		.4byte	0x2a9
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 9
+
+
+ 372 0121 2F010000 		.4byte	0x12f
+ 373 0125 0D       		.uleb128 0xd
+ 374 0126 01       		.uleb128 0x1
+ 375 0127 50       		.byte	0x50
+ 376 0128 05       		.uleb128 0x5
+ 377 0129 03       		.byte	0x3
+ 378 012a 00000000 		.4byte	.LANCHOR0
+ 379 012e 00       		.byte	0
+ 380 012f 0E       		.uleb128 0xe
+ 381 0130 12000000 		.4byte	.LVL1
+ 382 0134 B4020000 		.4byte	0x2b4
+ 383 0138 0C       		.uleb128 0xc
+ 384 0139 1A000000 		.4byte	.LVL2
+ 385 013d BF020000 		.4byte	0x2bf
+ 386 0141 4F010000 		.4byte	0x14f
+ 387 0145 0D       		.uleb128 0xd
+ 388 0146 01       		.uleb128 0x1
+ 389 0147 50       		.byte	0x50
+ 390 0148 05       		.uleb128 0x5
+ 391 0149 03       		.byte	0x3
+ 392 014a 00000000 		.4byte	.LANCHOR0
+ 393 014e 00       		.byte	0
+ 394 014f 0E       		.uleb128 0xe
+ 395 0150 1E000000 		.4byte	.LVL3
+ 396 0154 CA020000 		.4byte	0x2ca
+ 397 0158 0E       		.uleb128 0xe
+ 398 0159 22000000 		.4byte	.LVL4
+ 399 015d D5020000 		.4byte	0x2d5
+ 400 0161 00       		.byte	0
+ 401 0162 0B       		.uleb128 0xb
+ 402 0163 FF000000 		.4byte	.LASF21
+ 403 0167 01       		.byte	0x1
+ 404 0168 35       		.byte	0x35
+ 405 0169 00000000 		.4byte	.LFB33
+ 406 016d 14000000 		.4byte	.LFE33-.LFB33
+ 407 0171 01       		.uleb128 0x1
+ 408 0172 9C       		.byte	0x9c
+ 409 0173 94010000 		.4byte	0x194
+ 410 0177 0E       		.uleb128 0xe
+ 411 0178 06000000 		.4byte	.LVL5
+ 412 017c E0020000 		.4byte	0x2e0
+ 413 0180 0F       		.uleb128 0xf
+ 414 0181 0C000000 		.4byte	.LVL6
+ 415 0185 EB020000 		.4byte	0x2eb
+ 416 0189 0D       		.uleb128 0xd
+ 417 018a 01       		.uleb128 0x1
+ 418 018b 50       		.byte	0x50
+ 419 018c 05       		.uleb128 0x5
+ 420 018d 03       		.byte	0x3
+ 421 018e 00000000 		.4byte	rs485_rx_isr
+ 422 0192 00       		.byte	0
+ 423 0193 00       		.byte	0
+ 424 0194 10       		.uleb128 0x10
+ 425 0195 65010000 		.4byte	.LASF22
+ 426 0199 01       		.byte	0x1
+ 427 019a 3B       		.byte	0x3b
+ 428 019b 76000000 		.4byte	0x76
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 10
+
+
+ 429 019f 00000000 		.4byte	.LFB34
+ 430 01a3 1C000000 		.4byte	.LFE34-.LFB34
+ 431 01a7 01       		.uleb128 0x1
+ 432 01a8 9C       		.byte	0x9c
+ 433 01a9 E6010000 		.4byte	0x1e6
+ 434 01ad 11       		.uleb128 0x11
+ 435 01ae 35000000 		.4byte	.LASF24
+ 436 01b2 01       		.byte	0x1
+ 437 01b3 3D       		.byte	0x3d
+ 438 01b4 76000000 		.4byte	0x76
+ 439 01b8 00000000 		.4byte	.LLST0
+ 440 01bc 0E       		.uleb128 0xe
+ 441 01bd 06000000 		.4byte	.LVL7
+ 442 01c1 F6020000 		.4byte	0x2f6
+ 443 01c5 0C       		.uleb128 0xc
+ 444 01c6 0C000000 		.4byte	.LVL8
+ 445 01ca 01030000 		.4byte	0x301
+ 446 01ce DC010000 		.4byte	0x1dc
+ 447 01d2 0D       		.uleb128 0xd
+ 448 01d3 01       		.uleb128 0x1
+ 449 01d4 50       		.byte	0x50
+ 450 01d5 05       		.uleb128 0x5
+ 451 01d6 03       		.byte	0x3
+ 452 01d7 00000000 		.4byte	.LANCHOR0
+ 453 01db 00       		.byte	0
+ 454 01dc 0E       		.uleb128 0xe
+ 455 01dd 12000000 		.4byte	.LVL10
+ 456 01e1 0C030000 		.4byte	0x30c
+ 457 01e5 00       		.byte	0
+ 458 01e6 10       		.uleb128 0x10
+ 459 01e7 B9000000 		.4byte	.LASF23
+ 460 01eb 01       		.byte	0x1
+ 461 01ec 44       		.byte	0x44
+ 462 01ed 76000000 		.4byte	0x76
+ 463 01f1 00000000 		.4byte	.LFB35
+ 464 01f5 1C000000 		.4byte	.LFE35-.LFB35
+ 465 01f9 01       		.uleb128 0x1
+ 466 01fa 9C       		.byte	0x9c
+ 467 01fb 38020000 		.4byte	0x238
+ 468 01ff 11       		.uleb128 0x11
+ 469 0200 3A000000 		.4byte	.LASF25
+ 470 0204 01       		.byte	0x1
+ 471 0205 46       		.byte	0x46
+ 472 0206 76000000 		.4byte	0x76
+ 473 020a 13000000 		.4byte	.LLST1
+ 474 020e 0E       		.uleb128 0xe
+ 475 020f 06000000 		.4byte	.LVL12
+ 476 0213 F6020000 		.4byte	0x2f6
+ 477 0217 0C       		.uleb128 0xc
+ 478 0218 0C000000 		.4byte	.LVL13
+ 479 021c 17030000 		.4byte	0x317
+ 480 0220 2E020000 		.4byte	0x22e
+ 481 0224 0D       		.uleb128 0xd
+ 482 0225 01       		.uleb128 0x1
+ 483 0226 50       		.byte	0x50
+ 484 0227 05       		.uleb128 0x5
+ 485 0228 03       		.byte	0x3
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 11
+
+
+ 486 0229 00000000 		.4byte	.LANCHOR0
+ 487 022d 00       		.byte	0
+ 488 022e 0E       		.uleb128 0xe
+ 489 022f 12000000 		.4byte	.LVL15
+ 490 0233 0C030000 		.4byte	0x30c
+ 491 0237 00       		.byte	0
+ 492 0238 0B       		.uleb128 0xb
+ 493 0239 D1000000 		.4byte	.LASF26
+ 494 023d 01       		.byte	0x1
+ 495 023e 4D       		.byte	0x4d
+ 496 023f 00000000 		.4byte	.LFB36
+ 497 0243 08000000 		.4byte	.LFE36-.LFB36
+ 498 0247 01       		.uleb128 0x1
+ 499 0248 9C       		.byte	0x9c
+ 500 0249 7D020000 		.4byte	0x27d
+ 501 024d 12       		.uleb128 0x12
+ 502 024e 23010000 		.4byte	.LASF27
+ 503 0252 01       		.byte	0x1
+ 504 0253 4D       		.byte	0x4d
+ 505 0254 A4000000 		.4byte	0xa4
+ 506 0258 26000000 		.4byte	.LLST2
+ 507 025c 12       		.uleb128 0x12
+ 508 025d 50030000 		.4byte	.LASF28
+ 509 0261 01       		.byte	0x1
+ 510 0262 4D       		.byte	0x4d
+ 511 0263 76000000 		.4byte	0x76
+ 512 0267 47000000 		.4byte	.LLST3
+ 513 026b 0F       		.uleb128 0xf
+ 514 026c 06000000 		.4byte	.LVL18
+ 515 0270 22030000 		.4byte	0x322
+ 516 0274 0D       		.uleb128 0xd
+ 517 0275 01       		.uleb128 0x1
+ 518 0276 50       		.byte	0x50
+ 519 0277 03       		.uleb128 0x3
+ 520 0278 F3       		.byte	0xf3
+ 521 0279 01       		.uleb128 0x1
+ 522 027a 50       		.byte	0x50
+ 523 027b 00       		.byte	0
+ 524 027c 00       		.byte	0
+ 525 027d 13       		.uleb128 0x13
+ 526 027e B3020000 		.4byte	.LASF29
+ 527 0282 05       		.byte	0x5
+ 528 0283 5B       		.byte	0x5b
+ 529 0284 8E020000 		.4byte	0x28e
+ 530 0288 05       		.uleb128 0x5
+ 531 0289 03       		.byte	0x3
+ 532 028a 00000000 		.4byte	_modbus_timer_finished
+ 533 028e 14       		.uleb128 0x14
+ 534 028f 76000000 		.4byte	0x76
+ 535 0293 13       		.uleb128 0x13
+ 536 0294 E3010000 		.4byte	.LASF30
+ 537 0298 01       		.byte	0x1
+ 538 0299 28       		.byte	0x28
+ 539 029a A4020000 		.4byte	0x2a4
+ 540 029e 05       		.uleb128 0x5
+ 541 029f 03       		.byte	0x3
+ 542 02a0 00000000 		.4byte	rs_rd_buf
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 12
+
+
+ 543 02a4 14       		.uleb128 0x14
+ 544 02a5 AA000000 		.4byte	0xaa
+ 545 02a9 15       		.uleb128 0x15
+ 546 02aa E3000000 		.4byte	.LASF31
+ 547 02ae E3000000 		.4byte	.LASF31
+ 548 02b2 04       		.byte	0x4
+ 549 02b3 27       		.byte	0x27
+ 550 02b4 15       		.uleb128 0x15
+ 551 02b5 57030000 		.4byte	.LASF32
+ 552 02b9 57030000 		.4byte	.LASF32
+ 553 02bd 06       		.byte	0x6
+ 554 02be 6F       		.byte	0x6f
+ 555 02bf 15       		.uleb128 0x15
+ 556 02c0 8A010000 		.4byte	.LASF33
+ 557 02c4 8A010000 		.4byte	.LASF33
+ 558 02c8 04       		.byte	0x4
+ 559 02c9 24       		.byte	0x24
+ 560 02ca 15       		.uleb128 0x15
+ 561 02cb 22000000 		.4byte	.LASF34
+ 562 02cf 22000000 		.4byte	.LASF34
+ 563 02d3 07       		.byte	0x7
+ 564 02d4 50       		.byte	0x50
+ 565 02d5 15       		.uleb128 0x15
+ 566 02d6 3C010000 		.4byte	.LASF35
+ 567 02da 3C010000 		.4byte	.LASF35
+ 568 02de 06       		.byte	0x6
+ 569 02df 73       		.byte	0x73
+ 570 02e0 15       		.uleb128 0x15
+ 571 02e1 52010000 		.4byte	.LASF36
+ 572 02e5 52010000 		.4byte	.LASF36
+ 573 02e9 06       		.byte	0x6
+ 574 02ea 54       		.byte	0x54
+ 575 02eb 15       		.uleb128 0x15
+ 576 02ec 75010000 		.4byte	.LASF37
+ 577 02f0 75010000 		.4byte	.LASF37
+ 578 02f4 08       		.byte	0x8
+ 579 02f5 18       		.byte	0x18
+ 580 02f6 15       		.uleb128 0x15
+ 581 02f7 CA020000 		.4byte	.LASF38
+ 582 02fb CA020000 		.4byte	.LASF38
+ 583 02ff 08       		.byte	0x8
+ 584 0300 25       		.byte	0x25
+ 585 0301 15       		.uleb128 0x15
+ 586 0302 F2020000 		.4byte	.LASF39
+ 587 0306 F2020000 		.4byte	.LASF39
+ 588 030a 04       		.byte	0x4
+ 589 030b 25       		.byte	0x25
+ 590 030c 15       		.uleb128 0x15
+ 591 030d CF010000 		.4byte	.LASF40
+ 592 0311 CF010000 		.4byte	.LASF40
+ 593 0315 08       		.byte	0x8
+ 594 0316 23       		.byte	0x23
+ 595 0317 15       		.uleb128 0x15
+ 596 0318 0A000000 		.4byte	.LASF41
+ 597 031c 0A000000 		.4byte	.LASF41
+ 598 0320 04       		.byte	0x4
+ 599 0321 26       		.byte	0x26
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 13
+
+
+ 600 0322 15       		.uleb128 0x15
+ 601 0323 09030000 		.4byte	.LASF42
+ 602 0327 09030000 		.4byte	.LASF42
+ 603 032b 06       		.byte	0x6
+ 604 032c 8C       		.byte	0x8c
+ 605 032d 00       		.byte	0
+ 606              		.section	.debug_abbrev,"",%progbits
+ 607              	.Ldebug_abbrev0:
+ 608 0000 01       		.uleb128 0x1
+ 609 0001 11       		.uleb128 0x11
+ 610 0002 01       		.byte	0x1
+ 611 0003 25       		.uleb128 0x25
+ 612 0004 0E       		.uleb128 0xe
+ 613 0005 13       		.uleb128 0x13
+ 614 0006 0B       		.uleb128 0xb
+ 615 0007 03       		.uleb128 0x3
+ 616 0008 0E       		.uleb128 0xe
+ 617 0009 1B       		.uleb128 0x1b
+ 618 000a 0E       		.uleb128 0xe
+ 619 000b 55       		.uleb128 0x55
+ 620 000c 17       		.uleb128 0x17
+ 621 000d 11       		.uleb128 0x11
+ 622 000e 01       		.uleb128 0x1
+ 623 000f 10       		.uleb128 0x10
+ 624 0010 17       		.uleb128 0x17
+ 625 0011 00       		.byte	0
+ 626 0012 00       		.byte	0
+ 627 0013 02       		.uleb128 0x2
+ 628 0014 24       		.uleb128 0x24
+ 629 0015 00       		.byte	0
+ 630 0016 0B       		.uleb128 0xb
+ 631 0017 0B       		.uleb128 0xb
+ 632 0018 3E       		.uleb128 0x3e
+ 633 0019 0B       		.uleb128 0xb
+ 634 001a 03       		.uleb128 0x3
+ 635 001b 0E       		.uleb128 0xe
+ 636 001c 00       		.byte	0
+ 637 001d 00       		.byte	0
+ 638 001e 03       		.uleb128 0x3
+ 639 001f 16       		.uleb128 0x16
+ 640 0020 00       		.byte	0
+ 641 0021 03       		.uleb128 0x3
+ 642 0022 0E       		.uleb128 0xe
+ 643 0023 3A       		.uleb128 0x3a
+ 644 0024 0B       		.uleb128 0xb
+ 645 0025 3B       		.uleb128 0x3b
+ 646 0026 0B       		.uleb128 0xb
+ 647 0027 49       		.uleb128 0x49
+ 648 0028 13       		.uleb128 0x13
+ 649 0029 00       		.byte	0
+ 650 002a 00       		.byte	0
+ 651 002b 04       		.uleb128 0x4
+ 652 002c 24       		.uleb128 0x24
+ 653 002d 00       		.byte	0
+ 654 002e 0B       		.uleb128 0xb
+ 655 002f 0B       		.uleb128 0xb
+ 656 0030 3E       		.uleb128 0x3e
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 14
+
+
+ 657 0031 0B       		.uleb128 0xb
+ 658 0032 03       		.uleb128 0x3
+ 659 0033 08       		.uleb128 0x8
+ 660 0034 00       		.byte	0
+ 661 0035 00       		.byte	0
+ 662 0036 05       		.uleb128 0x5
+ 663 0037 0F       		.uleb128 0xf
+ 664 0038 00       		.byte	0
+ 665 0039 0B       		.uleb128 0xb
+ 666 003a 0B       		.uleb128 0xb
+ 667 003b 49       		.uleb128 0x49
+ 668 003c 13       		.uleb128 0x13
+ 669 003d 00       		.byte	0
+ 670 003e 00       		.byte	0
+ 671 003f 06       		.uleb128 0x6
+ 672 0040 13       		.uleb128 0x13
+ 673 0041 01       		.byte	0x1
+ 674 0042 03       		.uleb128 0x3
+ 675 0043 0E       		.uleb128 0xe
+ 676 0044 0B       		.uleb128 0xb
+ 677 0045 0B       		.uleb128 0xb
+ 678 0046 3A       		.uleb128 0x3a
+ 679 0047 0B       		.uleb128 0xb
+ 680 0048 3B       		.uleb128 0x3b
+ 681 0049 0B       		.uleb128 0xb
+ 682 004a 01       		.uleb128 0x1
+ 683 004b 13       		.uleb128 0x13
+ 684 004c 00       		.byte	0
+ 685 004d 00       		.byte	0
+ 686 004e 07       		.uleb128 0x7
+ 687 004f 0D       		.uleb128 0xd
+ 688 0050 00       		.byte	0
+ 689 0051 03       		.uleb128 0x3
+ 690 0052 08       		.uleb128 0x8
+ 691 0053 3A       		.uleb128 0x3a
+ 692 0054 0B       		.uleb128 0xb
+ 693 0055 3B       		.uleb128 0x3b
+ 694 0056 0B       		.uleb128 0xb
+ 695 0057 49       		.uleb128 0x49
+ 696 0058 13       		.uleb128 0x13
+ 697 0059 38       		.uleb128 0x38
+ 698 005a 0B       		.uleb128 0xb
+ 699 005b 00       		.byte	0
+ 700 005c 00       		.byte	0
+ 701 005d 08       		.uleb128 0x8
+ 702 005e 0D       		.uleb128 0xd
+ 703 005f 00       		.byte	0
+ 704 0060 03       		.uleb128 0x3
+ 705 0061 0E       		.uleb128 0xe
+ 706 0062 3A       		.uleb128 0x3a
+ 707 0063 0B       		.uleb128 0xb
+ 708 0064 3B       		.uleb128 0x3b
+ 709 0065 0B       		.uleb128 0xb
+ 710 0066 49       		.uleb128 0x49
+ 711 0067 13       		.uleb128 0x13
+ 712 0068 38       		.uleb128 0x38
+ 713 0069 0B       		.uleb128 0xb
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 15
+
+
+ 714 006a 00       		.byte	0
+ 715 006b 00       		.byte	0
+ 716 006c 09       		.uleb128 0x9
+ 717 006d 01       		.uleb128 0x1
+ 718 006e 01       		.byte	0x1
+ 719 006f 49       		.uleb128 0x49
+ 720 0070 13       		.uleb128 0x13
+ 721 0071 01       		.uleb128 0x1
+ 722 0072 13       		.uleb128 0x13
+ 723 0073 00       		.byte	0
+ 724 0074 00       		.byte	0
+ 725 0075 0A       		.uleb128 0xa
+ 726 0076 21       		.uleb128 0x21
+ 727 0077 00       		.byte	0
+ 728 0078 49       		.uleb128 0x49
+ 729 0079 13       		.uleb128 0x13
+ 730 007a 2F       		.uleb128 0x2f
+ 731 007b 0B       		.uleb128 0xb
+ 732 007c 00       		.byte	0
+ 733 007d 00       		.byte	0
+ 734 007e 0B       		.uleb128 0xb
+ 735 007f 2E       		.uleb128 0x2e
+ 736 0080 01       		.byte	0x1
+ 737 0081 3F       		.uleb128 0x3f
+ 738 0082 19       		.uleb128 0x19
+ 739 0083 03       		.uleb128 0x3
+ 740 0084 0E       		.uleb128 0xe
+ 741 0085 3A       		.uleb128 0x3a
+ 742 0086 0B       		.uleb128 0xb
+ 743 0087 3B       		.uleb128 0x3b
+ 744 0088 0B       		.uleb128 0xb
+ 745 0089 27       		.uleb128 0x27
+ 746 008a 19       		.uleb128 0x19
+ 747 008b 11       		.uleb128 0x11
+ 748 008c 01       		.uleb128 0x1
+ 749 008d 12       		.uleb128 0x12
+ 750 008e 06       		.uleb128 0x6
+ 751 008f 40       		.uleb128 0x40
+ 752 0090 18       		.uleb128 0x18
+ 753 0091 9742     		.uleb128 0x2117
+ 754 0093 19       		.uleb128 0x19
+ 755 0094 01       		.uleb128 0x1
+ 756 0095 13       		.uleb128 0x13
+ 757 0096 00       		.byte	0
+ 758 0097 00       		.byte	0
+ 759 0098 0C       		.uleb128 0xc
+ 760 0099 898201   		.uleb128 0x4109
+ 761 009c 01       		.byte	0x1
+ 762 009d 11       		.uleb128 0x11
+ 763 009e 01       		.uleb128 0x1
+ 764 009f 31       		.uleb128 0x31
+ 765 00a0 13       		.uleb128 0x13
+ 766 00a1 01       		.uleb128 0x1
+ 767 00a2 13       		.uleb128 0x13
+ 768 00a3 00       		.byte	0
+ 769 00a4 00       		.byte	0
+ 770 00a5 0D       		.uleb128 0xd
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 16
+
+
+ 771 00a6 8A8201   		.uleb128 0x410a
+ 772 00a9 00       		.byte	0
+ 773 00aa 02       		.uleb128 0x2
+ 774 00ab 18       		.uleb128 0x18
+ 775 00ac 9142     		.uleb128 0x2111
+ 776 00ae 18       		.uleb128 0x18
+ 777 00af 00       		.byte	0
+ 778 00b0 00       		.byte	0
+ 779 00b1 0E       		.uleb128 0xe
+ 780 00b2 898201   		.uleb128 0x4109
+ 781 00b5 00       		.byte	0
+ 782 00b6 11       		.uleb128 0x11
+ 783 00b7 01       		.uleb128 0x1
+ 784 00b8 31       		.uleb128 0x31
+ 785 00b9 13       		.uleb128 0x13
+ 786 00ba 00       		.byte	0
+ 787 00bb 00       		.byte	0
+ 788 00bc 0F       		.uleb128 0xf
+ 789 00bd 898201   		.uleb128 0x4109
+ 790 00c0 01       		.byte	0x1
+ 791 00c1 11       		.uleb128 0x11
+ 792 00c2 01       		.uleb128 0x1
+ 793 00c3 31       		.uleb128 0x31
+ 794 00c4 13       		.uleb128 0x13
+ 795 00c5 00       		.byte	0
+ 796 00c6 00       		.byte	0
+ 797 00c7 10       		.uleb128 0x10
+ 798 00c8 2E       		.uleb128 0x2e
+ 799 00c9 01       		.byte	0x1
+ 800 00ca 3F       		.uleb128 0x3f
+ 801 00cb 19       		.uleb128 0x19
+ 802 00cc 03       		.uleb128 0x3
+ 803 00cd 0E       		.uleb128 0xe
+ 804 00ce 3A       		.uleb128 0x3a
+ 805 00cf 0B       		.uleb128 0xb
+ 806 00d0 3B       		.uleb128 0x3b
+ 807 00d1 0B       		.uleb128 0xb
+ 808 00d2 27       		.uleb128 0x27
+ 809 00d3 19       		.uleb128 0x19
+ 810 00d4 49       		.uleb128 0x49
+ 811 00d5 13       		.uleb128 0x13
+ 812 00d6 11       		.uleb128 0x11
+ 813 00d7 01       		.uleb128 0x1
+ 814 00d8 12       		.uleb128 0x12
+ 815 00d9 06       		.uleb128 0x6
+ 816 00da 40       		.uleb128 0x40
+ 817 00db 18       		.uleb128 0x18
+ 818 00dc 9742     		.uleb128 0x2117
+ 819 00de 19       		.uleb128 0x19
+ 820 00df 01       		.uleb128 0x1
+ 821 00e0 13       		.uleb128 0x13
+ 822 00e1 00       		.byte	0
+ 823 00e2 00       		.byte	0
+ 824 00e3 11       		.uleb128 0x11
+ 825 00e4 34       		.uleb128 0x34
+ 826 00e5 00       		.byte	0
+ 827 00e6 03       		.uleb128 0x3
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 17
+
+
+ 828 00e7 0E       		.uleb128 0xe
+ 829 00e8 3A       		.uleb128 0x3a
+ 830 00e9 0B       		.uleb128 0xb
+ 831 00ea 3B       		.uleb128 0x3b
+ 832 00eb 0B       		.uleb128 0xb
+ 833 00ec 49       		.uleb128 0x49
+ 834 00ed 13       		.uleb128 0x13
+ 835 00ee 02       		.uleb128 0x2
+ 836 00ef 17       		.uleb128 0x17
+ 837 00f0 00       		.byte	0
+ 838 00f1 00       		.byte	0
+ 839 00f2 12       		.uleb128 0x12
+ 840 00f3 05       		.uleb128 0x5
+ 841 00f4 00       		.byte	0
+ 842 00f5 03       		.uleb128 0x3
+ 843 00f6 0E       		.uleb128 0xe
+ 844 00f7 3A       		.uleb128 0x3a
+ 845 00f8 0B       		.uleb128 0xb
+ 846 00f9 3B       		.uleb128 0x3b
+ 847 00fa 0B       		.uleb128 0xb
+ 848 00fb 49       		.uleb128 0x49
+ 849 00fc 13       		.uleb128 0x13
+ 850 00fd 02       		.uleb128 0x2
+ 851 00fe 17       		.uleb128 0x17
+ 852 00ff 00       		.byte	0
+ 853 0100 00       		.byte	0
+ 854 0101 13       		.uleb128 0x13
+ 855 0102 34       		.uleb128 0x34
+ 856 0103 00       		.byte	0
+ 857 0104 03       		.uleb128 0x3
+ 858 0105 0E       		.uleb128 0xe
+ 859 0106 3A       		.uleb128 0x3a
+ 860 0107 0B       		.uleb128 0xb
+ 861 0108 3B       		.uleb128 0x3b
+ 862 0109 0B       		.uleb128 0xb
+ 863 010a 49       		.uleb128 0x49
+ 864 010b 13       		.uleb128 0x13
+ 865 010c 3F       		.uleb128 0x3f
+ 866 010d 19       		.uleb128 0x19
+ 867 010e 02       		.uleb128 0x2
+ 868 010f 18       		.uleb128 0x18
+ 869 0110 00       		.byte	0
+ 870 0111 00       		.byte	0
+ 871 0112 14       		.uleb128 0x14
+ 872 0113 35       		.uleb128 0x35
+ 873 0114 00       		.byte	0
+ 874 0115 49       		.uleb128 0x49
+ 875 0116 13       		.uleb128 0x13
+ 876 0117 00       		.byte	0
+ 877 0118 00       		.byte	0
+ 878 0119 15       		.uleb128 0x15
+ 879 011a 2E       		.uleb128 0x2e
+ 880 011b 00       		.byte	0
+ 881 011c 3F       		.uleb128 0x3f
+ 882 011d 19       		.uleb128 0x19
+ 883 011e 3C       		.uleb128 0x3c
+ 884 011f 19       		.uleb128 0x19
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 18
+
+
+ 885 0120 6E       		.uleb128 0x6e
+ 886 0121 0E       		.uleb128 0xe
+ 887 0122 03       		.uleb128 0x3
+ 888 0123 0E       		.uleb128 0xe
+ 889 0124 3A       		.uleb128 0x3a
+ 890 0125 0B       		.uleb128 0xb
+ 891 0126 3B       		.uleb128 0x3b
+ 892 0127 0B       		.uleb128 0xb
+ 893 0128 00       		.byte	0
+ 894 0129 00       		.byte	0
+ 895 012a 00       		.byte	0
+ 896              		.section	.debug_loc,"",%progbits
+ 897              	.Ldebug_loc0:
+ 898              	.LLST0:
+ 899 0000 0E000000 		.4byte	.LVL9
+ 900 0004 14000000 		.4byte	.LVL11
+ 901 0008 0100     		.2byte	0x1
+ 902 000a 54       		.byte	0x54
+ 903 000b 00000000 		.4byte	0
+ 904 000f 00000000 		.4byte	0
+ 905              	.LLST1:
+ 906 0013 0E000000 		.4byte	.LVL14
+ 907 0017 14000000 		.4byte	.LVL16
+ 908 001b 0100     		.2byte	0x1
+ 909 001d 54       		.byte	0x54
+ 910 001e 00000000 		.4byte	0
+ 911 0022 00000000 		.4byte	0
+ 912              	.LLST2:
+ 913 0026 00000000 		.4byte	.LVL17
+ 914 002a 05000000 		.4byte	.LVL18-1
+ 915 002e 0100     		.2byte	0x1
+ 916 0030 50       		.byte	0x50
+ 917 0031 05000000 		.4byte	.LVL18-1
+ 918 0035 08000000 		.4byte	.LFE36
+ 919 0039 0400     		.2byte	0x4
+ 920 003b F3       		.byte	0xf3
+ 921 003c 01       		.uleb128 0x1
+ 922 003d 50       		.byte	0x50
+ 923 003e 9F       		.byte	0x9f
+ 924 003f 00000000 		.4byte	0
+ 925 0043 00000000 		.4byte	0
+ 926              	.LLST3:
+ 927 0047 00000000 		.4byte	.LVL17
+ 928 004b 05000000 		.4byte	.LVL18-1
+ 929 004f 0100     		.2byte	0x1
+ 930 0051 51       		.byte	0x51
+ 931 0052 05000000 		.4byte	.LVL18-1
+ 932 0056 08000000 		.4byte	.LFE36
+ 933 005a 0400     		.2byte	0x4
+ 934 005c F3       		.byte	0xf3
+ 935 005d 01       		.uleb128 0x1
+ 936 005e 51       		.byte	0x51
+ 937 005f 9F       		.byte	0x9f
+ 938 0060 00000000 		.4byte	0
+ 939 0064 00000000 		.4byte	0
+ 940              		.section	.debug_aranges,"",%progbits
+ 941 0000 3C000000 		.4byte	0x3c
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 19
+
+
+ 942 0004 0200     		.2byte	0x2
+ 943 0006 00000000 		.4byte	.Ldebug_info0
+ 944 000a 04       		.byte	0x4
+ 945 000b 00       		.byte	0
+ 946 000c 0000     		.2byte	0
+ 947 000e 0000     		.2byte	0
+ 948 0010 00000000 		.4byte	.LFB32
+ 949 0014 2C000000 		.4byte	.LFE32-.LFB32
+ 950 0018 00000000 		.4byte	.LFB33
+ 951 001c 14000000 		.4byte	.LFE33-.LFB33
+ 952 0020 00000000 		.4byte	.LFB34
+ 953 0024 1C000000 		.4byte	.LFE34-.LFB34
+ 954 0028 00000000 		.4byte	.LFB35
+ 955 002c 1C000000 		.4byte	.LFE35-.LFB35
+ 956 0030 00000000 		.4byte	.LFB36
+ 957 0034 08000000 		.4byte	.LFE36-.LFB36
+ 958 0038 00000000 		.4byte	0
+ 959 003c 00000000 		.4byte	0
+ 960              		.section	.debug_ranges,"",%progbits
+ 961              	.Ldebug_ranges0:
+ 962 0000 00000000 		.4byte	.LFB32
+ 963 0004 2C000000 		.4byte	.LFE32
+ 964 0008 00000000 		.4byte	.LFB33
+ 965 000c 14000000 		.4byte	.LFE33
+ 966 0010 00000000 		.4byte	.LFB34
+ 967 0014 1C000000 		.4byte	.LFE34
+ 968 0018 00000000 		.4byte	.LFB35
+ 969 001c 1C000000 		.4byte	.LFE35
+ 970 0020 00000000 		.4byte	.LFB36
+ 971 0024 08000000 		.4byte	.LFE36
+ 972 0028 00000000 		.4byte	0
+ 973 002c 00000000 		.4byte	0
+ 974              		.section	.debug_line,"",%progbits
+ 975              	.Ldebug_line0:
+ 976 0000 F9010000 		.section	.debug_str,"MS",%progbits,1
+ 976      02009301 
+ 976      00000201 
+ 976      FB0E0D00 
+ 976      01010101 
+ 977              	.LASF9:
+ 978 0000 5F5F7569 		.ascii	"__uint8_t\000"
+ 978      6E74385F 
+ 978      7400
+ 979              	.LASF41:
+ 980 000a 72696E67 		.ascii	"ring_buf_count\000"
+ 980      5F627566 
+ 980      5F636F75 
+ 980      6E7400
+ 981              	.LASF16:
+ 982 0019 6275665F 		.ascii	"buf_in_i\000"
+ 982      696E5F69 
+ 982      00
+ 983              	.LASF34:
+ 984 0022 6D6F6462 		.ascii	"modbus_timer_reset\000"
+ 984      75735F74 
+ 984      696D6572 
+ 984      5F726573 
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 20
+
+
+ 984      657400
+ 985              	.LASF24:
+ 986 0035 62797465 		.ascii	"byte\000"
+ 986      00
+ 987              	.LASF25:
+ 988 003a 73746174 		.ascii	"status\000"
+ 988      757300
+ 989              	.LASF45:
+ 990 0041 433A5C55 		.ascii	"C:\\Users\\Luke Young\\Documents\\06_Projects\\PSOC"
+ 990      73657273 
+ 990      5C4C756B 
+ 990      6520596F 
+ 990      756E675C 
+ 991 006f 5F4C6962 		.ascii	"_Librays\\Modbus_RTU_PSOC4\\example_projects\\Basic"
+ 991      72617973 
+ 991      5C4D6F64 
+ 991      6275735F 
+ 991      5254555F 
+ 992 009f 5F315F4D 		.ascii	"_1_Modbus_RTU_PSOC4.cydsn\000"
+ 992      6F646275 
+ 992      735F5254 
+ 992      555F5053 
+ 992      4F43342E 
+ 993              	.LASF23:
+ 994 00b9 6D6F6462 		.ascii	"modbus_read_ready\000"
+ 994      75735F72 
+ 994      6561645F 
+ 994      72656164 
+ 994      7900
+ 995              	.LASF11:
+ 996 00cb 666C6F61 		.ascii	"float\000"
+ 996      7400
+ 997              	.LASF26:
+ 998 00d1 6D6F6462 		.ascii	"modbus_write_data\000"
+ 998      75735F77 
+ 998      72697465 
+ 998      5F646174 
+ 998      6100
+ 999              	.LASF31:
+ 1000 00e3 72696E67 		.ascii	"ring_buf_full\000"
+ 1000      5F627566 
+ 1000      5F66756C 
+ 1000      6C00
+ 1001              	.LASF1:
+ 1002 00f1 756E7369 		.ascii	"unsigned char\000"
+ 1002      676E6564 
+ 1002      20636861 
+ 1002      7200
+ 1003              	.LASF21:
+ 1004 00ff 5F6D6F64 		.ascii	"_modbus_UART_init\000"
+ 1004      6275735F 
+ 1004      55415254 
+ 1004      5F696E69 
+ 1004      7400
+ 1005              	.LASF5:
+ 1006 0111 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1006      20756E73 
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 21
+
+
+ 1006      69676E65 
+ 1006      6420696E 
+ 1006      7400
+ 1007              	.LASF27:
+ 1008 0123 5F646174 		.ascii	"_data\000"
+ 1008      6100
+ 1009              	.LASF3:
+ 1010 0129 73686F72 		.ascii	"short unsigned int\000"
+ 1010      7420756E 
+ 1010      7369676E 
+ 1010      65642069 
+ 1010      6E7400
+ 1011              	.LASF35:
+ 1012 013c 52533438 		.ascii	"RS485_GetRxBufferSize\000"
+ 1012      355F4765 
+ 1012      74527842 
+ 1012      75666665 
+ 1012      7253697A 
+ 1013              	.LASF36:
+ 1014 0152 52533438 		.ascii	"RS485_Start\000"
+ 1014      355F5374 
+ 1014      61727400 
+ 1015              	.LASF12:
+ 1016 015e 646F7562 		.ascii	"double\000"
+ 1016      6C6500
+ 1017              	.LASF22:
+ 1018 0165 6D6F6462 		.ascii	"modbus_get_byte\000"
+ 1018      75735F67 
+ 1018      65745F62 
+ 1018      79746500 
+ 1019              	.LASF37:
+ 1020 0175 52533438 		.ascii	"RS485_RX_ISR_StartEx\000"
+ 1020      355F5258 
+ 1020      5F495352 
+ 1020      5F537461 
+ 1020      72744578 
+ 1021              	.LASF33:
+ 1022 018a 72696E67 		.ascii	"ring_buf_in\000"
+ 1022      5F627566 
+ 1022      5F696E00 
+ 1023              	.LASF8:
+ 1024 0196 756E7369 		.ascii	"unsigned int\000"
+ 1024      676E6564 
+ 1024      20696E74 
+ 1024      00
+ 1025              	.LASF7:
+ 1026 01a3 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1026      206C6F6E 
+ 1026      6720756E 
+ 1026      7369676E 
+ 1026      65642069 
+ 1027              	.LASF10:
+ 1028 01ba 75696E74 		.ascii	"uint8_t\000"
+ 1028      385F7400 
+ 1029              	.LASF20:
+ 1030 01c2 72733438 		.ascii	"rs485_rx_isr\000"
+ 1030      355F7278 
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 22
+
+
+ 1030      5F697372 
+ 1030      00
+ 1031              	.LASF40:
+ 1032 01cf 52533438 		.ascii	"RS485_RX_ISR_Enable\000"
+ 1032      355F5258 
+ 1032      5F495352 
+ 1032      5F456E61 
+ 1032      626C6500 
+ 1033              	.LASF30:
+ 1034 01e3 72735F72 		.ascii	"rs_rd_buf\000"
+ 1034      645F6275 
+ 1034      6600
+ 1035              	.LASF43:
+ 1036 01ed 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1036      43313120 
+ 1036      352E342E 
+ 1036      31203230 
+ 1036      31363036 
+ 1037 0220 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1037      20726576 
+ 1037      6973696F 
+ 1037      6E203233 
+ 1037      37373135 
+ 1038 0253 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1038      66756E63 
+ 1038      74696F6E 
+ 1038      2D736563 
+ 1038      74696F6E 
+ 1039              	.LASF14:
+ 1040 027b 6C6F6E67 		.ascii	"long double\000"
+ 1040      20646F75 
+ 1040      626C6500 
+ 1041              	.LASF15:
+ 1042 0287 73697A65 		.ascii	"sizetype\000"
+ 1042      74797065 
+ 1042      00
+ 1043              	.LASF17:
+ 1044 0290 6275665F 		.ascii	"buf_out_i\000"
+ 1044      6F75745F 
+ 1044      6900
+ 1045              	.LASF6:
+ 1046 029a 6C6F6E67 		.ascii	"long long int\000"
+ 1046      206C6F6E 
+ 1046      6720696E 
+ 1046      7400
+ 1047              	.LASF46:
+ 1048 02a8 72696E67 		.ascii	"ring_buf_s\000"
+ 1048      5F627566 
+ 1048      5F7300
+ 1049              	.LASF29:
+ 1050 02b3 5F6D6F64 		.ascii	"_modbus_timer_finished\000"
+ 1050      6275735F 
+ 1050      74696D65 
+ 1050      725F6669 
+ 1050      6E697368 
+ 1051              	.LASF38:
+ 1052 02ca 52533438 		.ascii	"RS485_RX_ISR_Disable\000"
+ARM GAS  C:\Users\LUKEYO~1\AppData\Local\Temp\cc2zQIlg.s 			page 23
+
+
+ 1052      355F5258 
+ 1052      5F495352 
+ 1052      5F446973 
+ 1052      61626C65 
+ 1053              	.LASF2:
+ 1054 02df 73686F72 		.ascii	"short int\000"
+ 1054      7420696E 
+ 1054      7400
+ 1055              	.LASF19:
+ 1056 02e9 6275665F 		.ascii	"buf_full\000"
+ 1056      66756C6C 
+ 1056      00
+ 1057              	.LASF39:
+ 1058 02f2 72696E67 		.ascii	"ring_buf_out\000"
+ 1058      5F627566 
+ 1058      5F6F7574 
+ 1058      00
+ 1059              	.LASF18:
+ 1060 02ff 6275665F 		.ascii	"buf_count\000"
+ 1060      636F756E 
+ 1060      7400
+ 1061              	.LASF42:
+ 1062 0309 52533438 		.ascii	"RS485_PutArray\000"
+ 1062      355F5075 
+ 1062      74417272 
+ 1062      617900
+ 1063              	.LASF4:
+ 1064 0318 6C6F6E67 		.ascii	"long int\000"
+ 1064      20696E74 
+ 1064      00
+ 1065              	.LASF13:
+ 1066 0321 63686172 		.ascii	"char\000"
+ 1066      00
+ 1067              	.LASF44:
+ 1068 0326 2E2E5C2E 		.ascii	"..\\..\\src\\modbus-local-uart.c\000"
+ 1068      2E5C7372 
+ 1068      635C6D6F 
+ 1068      64627573 
+ 1068      2D6C6F63 
+ 1069              	.LASF0:
+ 1070 0344 7369676E 		.ascii	"signed char\000"
+ 1070      65642063 
+ 1070      68617200 
+ 1071              	.LASF28:
+ 1072 0350 6C656E67 		.ascii	"length\000"
+ 1072      746800
+ 1073              	.LASF32:
+ 1074 0357 52533438 		.ascii	"RS485_ReadRxData\000"
+ 1074      355F5265 
+ 1074      61645278 
+ 1074      44617461 
+ 1074      00
+ 1075              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

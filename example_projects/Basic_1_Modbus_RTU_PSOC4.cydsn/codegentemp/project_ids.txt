@@ -1,0 +1,6 @@
+C:\Users\Luke Young\Documents\06_Projects\PSOC_Librays\Modbus_RTU_PSOC4\example_projects\Basic_1_Modbus_RTU_PSOC4.cydsn\Basic_1_Modbus_RTU_PSOC4.cyprj|a986927e-e26e-4f60-9f02-2cdb5f9d12c7
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|f5051744-4ecf-441c-8045-d49d8d4d4041
+C:\Users\Luke Young\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|a5727438-ace3-4485-a168-c5b201efd8be
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|3b7db1aa-5585-4f02-8be4-12b22877c68d
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|b1955a6f-f7f8-45fc-9354-c390d38b222e
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|6ca983ce-5d40-4538-8b8a-635bbab137a2

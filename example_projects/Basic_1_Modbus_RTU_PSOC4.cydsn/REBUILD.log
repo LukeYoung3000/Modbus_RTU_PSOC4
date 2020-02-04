@@ -1,0 +1,194 @@
+--------------- Rebuild Started: 01/29/2020 17:49:16 Project: ModBus_4200_Dev, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\main.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\modbus.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\ringbuffer.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\modbus-local-uart.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\cymetadata.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\SW1.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\SW1_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\LED1.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\LED1_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\cy_em_eeprom.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\Cm0Start.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\CyFlash.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\CyLib.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\cyPm.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\cyutils.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\CyBootAsmGnu.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\CyLFClk.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\cybootloader.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\Bootloadable_1.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\USB_UART.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\USB_UART_SPI_UART.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\USB_UART_SPI_UART_INT.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\USB_UART_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\USB_UART_UART.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\USB_UART_BOOT.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\USB_UART_UART_BOOT.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\USB_UART_SCBCLK.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\USB_UART_tx.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\USB_UART_tx_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\USB_UART_rx.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\USB_UART_rx_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\RS485_RX_ISR.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\RS485_EN.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\RS485_EN_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\RS485.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\RS485_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\RS485_INT.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\RS485_BOOT.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\MODBUS_TIMER_CLK.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\MODBUS_TIMER.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\MODBUS_TIMER_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\MODBUS_TIMEOUT.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\RS485_IntClock.o"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\ModBus_4200_Dev.hex"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\ModBus_4200_Dev.elf"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\ModBus_4200_Dev.map"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\ModBus_4200_Dev.cyacd"
+Deleting file ".\ModBus_4200_Dev.cycdx"
+Deleting file ".\ModBus_4200_Dev.svd"
+Deleting file ".\ModBus_4200_Dev.rpt"
+Deleting file ".\ModBus_4200_Dev_timing.html"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\.deps\SOURCE_C__ARM_GCC_GENERIC.P"
+Deleting file ".\CortexM0\ARM_GCC_541\Debug\.deps\SOURCE_ASM__ARM_GCC_GENERIC.P"
+cydsfit.exe -.appdatapath "C:\Users\Luke Young\AppData\Local\Cypress Semiconductor\PSoC Creator\4.2" -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -.fdsreffile=referenced_files.txt -p "C:\Users\Luke Young\Documents\06_Projects\LoRa_ModBus_Controller\PSOC_ModBus\ModBus_4200_Dev\ModBus_4200_Dev.cydsn\ModBus_4200_Dev.cyprj" -d CY8C4245AXI-483 -s "C:\Users\Luke Young\Documents\06_Projects\LoRa_ModBus_Controller\PSOC_ModBus\ModBus_4200_Dev\ModBus_4200_Dev.cydsn\Generated_Source\PSoC4" -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE
+Elaborating Design...
+HDL Generation...
+Synthesis...
+Tech Mapping...
+Analog Placement...
+Analog Routing...
+Analog Code Generation...
+Digital Placement...
+Digital Routing...
+Bitstream Generation...
+Bitstream Verification...
+Static timing analysis...
+API Generation...
+Dependency Generation...
+Cleanup...
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/main.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c main.c -o .\CortexM0\ARM_GCC_541\Debug\main.o
+main.c: In function 'rs485_rx_isr':
+main.c:18:27: warning: passing argument 1 of 'ring_buf_full' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+         if (ring_buf_full(&rs_rd_buf))
+                           ^
+In file included from modbus-local.h:28:0,
+                 from main.c:8:
+ringbuffer.h:40:9: note: expected 'struct ring_buf_s *' but argument is of type 'volatile struct ring_buf_s *'
+ uint8_t ring_buf_full(struct ring_buf_s *buf_full);
+         ^
+main.c:20:21: warning: passing argument 1 of 'ring_buf_in' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+         ring_buf_in(&rs_rd_buf, RS485_ReadRxData());
+                     ^
+In file included from modbus-local.h:28:0,
+                 from main.c:8:
+ringbuffer.h:37:6: note: expected 'struct ring_buf_s *' but argument is of type 'volatile struct ring_buf_s *'
+ void ring_buf_in(struct ring_buf_s *buffer, uint8_t val);
+      ^
+In file included from modbus-local.h:25:0,
+                 from main.c:8:
+main.c: At top level:
+modbus.h:79:17: warning: 'mb_buf_to_val' defined but not used [-Wunused-function]
+ static uint16_t mb_buf_to_val(uint8_t *buf)
+                 ^
+modbus.h:84:16: warning: 'mb_val_to_buf' defined but not used [-Wunused-function]
+ static uint8_t mb_val_to_buf(uint8_t *buf, uint16_t val)
+                ^
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/modbus.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c modbus.c -o .\CortexM0\ARM_GCC_541\Debug\modbus.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/ringbuffer.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c ringbuffer.c -o .\CortexM0\ARM_GCC_541\Debug\ringbuffer.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/modbus-local-uart.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c modbus-local-uart.c -o .\CortexM0\ARM_GCC_541\Debug\modbus-local-uart.o
+modbus-local-uart.c: In function 'modbus_get_byte':
+modbus-local-uart.c:7:25: warning: passing argument 1 of 'ring_buf_out' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+     byte = ring_buf_out(&rs_rd_buf);
+                         ^
+In file included from modbus-local.h:28:0,
+                 from modbus-local-uart.c:1:
+ringbuffer.h:38:9: note: expected 'struct ring_buf_s *' but argument is of type 'volatile struct ring_buf_s *'
+ uint8_t ring_buf_out(struct ring_buf_s *buffer);
+         ^
+modbus-local-uart.c: In function 'modbus_read_ready':
+modbus-local-uart.c:16:29: warning: passing argument 1 of 'ring_buf_count' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+     status = ring_buf_count(&rs_rd_buf);
+                             ^
+In file included from modbus-local.h:28:0,
+                 from modbus-local-uart.c:1:
+ringbuffer.h:39:9: note: expected 'struct ring_buf_s *' but argument is of type 'volatile struct ring_buf_s *'
+ uint8_t ring_buf_count(struct ring_buf_s *buffer);
+         ^
+modbus-local-uart.c: In function 'modbus_write_regs':
+modbus-local-uart.c:60:13: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+             sprintf(str, "Register: %d  Value: %d \r\n", reg, data[reg]);
+             ^
+modbus-local-uart.c:60:13: warning: incompatible implicit declaration of built-in function 'sprintf'
+modbus-local-uart.c:60:13: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+In file included from modbus-local.h:27:0,
+                 from modbus-local-uart.c:1:
+modbus-local-uart.c: In function 'modbus_read_regs':
+git-revision.h:1:22: warning: large integer implicitly truncated to unsigned type [-Woverflow]
+ #define GIT_REVISION 0xf30ab2f
+                      ^
+modbus-local-uart.c:90:31: note: in expansion of macro 'GIT_REVISION'
+             mb_data_resp(msg, GIT_REVISION);
+                               ^
+In file included from modbus-local.h:25:0,
+                 from modbus-local-uart.c:1:
+modbus-local-uart.c: At top level:
+modbus.h:79:17: warning: 'mb_buf_to_val' defined but not used [-Wunused-function]
+ static uint16_t mb_buf_to_val(uint8_t *buf)
+                 ^
+modbus.h:84:16: warning: 'mb_val_to_buf' defined but not used [-Wunused-function]
+ static uint8_t mb_val_to_buf(uint8_t *buf, uint16_t val)
+                ^
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/cyfitter_cfg.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\cyfitter_cfg.c -o .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/cymetadata.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\cymetadata.c -o .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/SW1.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\SW1.c -o .\CortexM0\ARM_GCC_541\Debug\SW1.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/SW1_PM.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\SW1_PM.c -o .\CortexM0\ARM_GCC_541\Debug\SW1_PM.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/LED1.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\LED1.c -o .\CortexM0\ARM_GCC_541\Debug\LED1.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/LED1_PM.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\LED1_PM.c -o .\CortexM0\ARM_GCC_541\Debug\LED1_PM.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/cy_em_eeprom.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\cy_em_eeprom.c -o .\CortexM0\ARM_GCC_541\Debug\cy_em_eeprom.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/Cm0Start.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\Cm0Start.c -o .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/CyFlash.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\CyFlash.c -o .\CortexM0\ARM_GCC_541\Debug\CyFlash.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/CyLib.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\CyLib.c -o .\CortexM0\ARM_GCC_541\Debug\CyLib.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/cyPm.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\cyPm.c -o .\CortexM0\ARM_GCC_541\Debug\cyPm.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/cyutils.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\cyutils.c -o .\CortexM0\ARM_GCC_541\Debug\cyutils.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/CyLFClk.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\CyLFClk.c -o .\CortexM0\ARM_GCC_541\Debug\CyLFClk.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/cybootloader.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\cybootloader.c -o .\CortexM0\ARM_GCC_541\Debug\cybootloader.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/Bootloadable_1.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\Bootloadable_1.c -o .\CortexM0\ARM_GCC_541\Debug\Bootloadable_1.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/USB_UART.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\USB_UART.c -o .\CortexM0\ARM_GCC_541\Debug\USB_UART.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/USB_UART_SPI_UART.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\USB_UART_SPI_UART.c -o .\CortexM0\ARM_GCC_541\Debug\USB_UART_SPI_UART.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/USB_UART_SPI_UART_INT.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\USB_UART_SPI_UART_INT.c -o .\CortexM0\ARM_GCC_541\Debug\USB_UART_SPI_UART_INT.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/USB_UART_PM.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\USB_UART_PM.c -o .\CortexM0\ARM_GCC_541\Debug\USB_UART_PM.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/USB_UART_UART.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\USB_UART_UART.c -o .\CortexM0\ARM_GCC_541\Debug\USB_UART_UART.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/USB_UART_BOOT.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\USB_UART_BOOT.c -o .\CortexM0\ARM_GCC_541\Debug\USB_UART_BOOT.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/USB_UART_UART_BOOT.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\USB_UART_UART_BOOT.c -o .\CortexM0\ARM_GCC_541\Debug\USB_UART_UART_BOOT.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/USB_UART_SCBCLK.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\USB_UART_SCBCLK.c -o .\CortexM0\ARM_GCC_541\Debug\USB_UART_SCBCLK.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/USB_UART_tx.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\USB_UART_tx.c -o .\CortexM0\ARM_GCC_541\Debug\USB_UART_tx.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/USB_UART_tx_PM.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\USB_UART_tx_PM.c -o .\CortexM0\ARM_GCC_541\Debug\USB_UART_tx_PM.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/USB_UART_rx.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\USB_UART_rx.c -o .\CortexM0\ARM_GCC_541\Debug\USB_UART_rx.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/USB_UART_rx_PM.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\USB_UART_rx_PM.c -o .\CortexM0\ARM_GCC_541\Debug\USB_UART_rx_PM.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/RS485_RX_ISR.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\RS485_RX_ISR.c -o .\CortexM0\ARM_GCC_541\Debug\RS485_RX_ISR.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/RS485_EN.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\RS485_EN.c -o .\CortexM0\ARM_GCC_541\Debug\RS485_EN.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/RS485_EN_PM.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\RS485_EN_PM.c -o .\CortexM0\ARM_GCC_541\Debug\RS485_EN_PM.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/RS485.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\RS485.c -o .\CortexM0\ARM_GCC_541\Debug\RS485.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/RS485_PM.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\RS485_PM.c -o .\CortexM0\ARM_GCC_541\Debug\RS485_PM.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/RS485_INT.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\RS485_INT.c -o .\CortexM0\ARM_GCC_541\Debug\RS485_INT.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/RS485_BOOT.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\RS485_BOOT.c -o .\CortexM0\ARM_GCC_541\Debug\RS485_BOOT.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/MODBUS_TIMER_CLK.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\MODBUS_TIMER_CLK.c -o .\CortexM0\ARM_GCC_541\Debug\MODBUS_TIMER_CLK.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/MODBUS_TIMER.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\MODBUS_TIMER.c -o .\CortexM0\ARM_GCC_541\Debug\MODBUS_TIMER.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/MODBUS_TIMER_PM.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\MODBUS_TIMER_PM.c -o .\CortexM0\ARM_GCC_541\Debug\MODBUS_TIMER_PM.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/MODBUS_TIMEOUT.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\MODBUS_TIMEOUT.c -o .\CortexM0\ARM_GCC_541\Debug\MODBUS_TIMEOUT.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/RS485_IntClock.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\RS485_IntClock.c -o .\CortexM0\ARM_GCC_541\Debug\RS485_IntClock.o
+arm-none-eabi-as.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -alh=.\CortexM0\ARM_GCC_541\Debug/CyBootAsmGnu.lst -g -W -o .\CortexM0\ARM_GCC_541\Debug\CyBootAsmGnu.o Generated_Source\PSoC4\CyBootAsmGnu.s
+arm-none-eabi-ar.exe -rs .\CortexM0\ARM_GCC_541\Debug\ModBus_4200_Dev.a .\CortexM0\ARM_GCC_541\Debug\SW1.o .\CortexM0\ARM_GCC_541\Debug\SW1_PM.o .\CortexM0\ARM_GCC_541\Debug\LED1.o .\CortexM0\ARM_GCC_541\Debug\LED1_PM.o .\CortexM0\ARM_GCC_541\Debug\cy_em_eeprom.o .\CortexM0\ARM_GCC_541\Debug\CyFlash.o .\CortexM0\ARM_GCC_541\Debug\CyLib.o .\CortexM0\ARM_GCC_541\Debug\cyPm.o .\CortexM0\ARM_GCC_541\Debug\cyutils.o .\CortexM0\ARM_GCC_541\Debug\CyLFClk.o .\CortexM0\ARM_GCC_541\Debug\Bootloadable_1.o .\CortexM0\ARM_GCC_541\Debug\USB_UART.o .\CortexM0\ARM_GCC_541\Debug\USB_UART_SPI_UART.o .\CortexM0\ARM_GCC_541\Debug\USB_UART_SPI_UART_INT.o .\CortexM0\ARM_GCC_541\Debug\USB_UART_PM.o .\CortexM0\ARM_GCC_541\Debug\USB_UART_UART.o .\CortexM0\ARM_GCC_541\Debug\USB_UART_BOOT.o .\CortexM0\ARM_GCC_541\Debug\USB_UART_UART_BOOT.o .\CortexM0\ARM_GCC_541\Debug\USB_UART_SCBCLK.o .\CortexM0\ARM_GCC_541\Debug\USB_UART_tx.o .\CortexM0\ARM_GCC_541\Debug\USB_UART_tx_PM.o .\CortexM0\ARM_GCC_541\Debug\USB_UART_rx.o .\CortexM0\ARM_GCC_541\Debug\USB_UART_rx_PM.o .\CortexM0\ARM_GCC_541\Debug\RS485_RX_ISR.o .\CortexM0\ARM_GCC_541\Debug\RS485_EN.o .\CortexM0\ARM_GCC_541\Debug\RS485_EN_PM.o .\CortexM0\ARM_GCC_541\Debug\RS485.o .\CortexM0\ARM_GCC_541\Debug\RS485_PM.o .\CortexM0\ARM_GCC_541\Debug\RS485_INT.o .\CortexM0\ARM_GCC_541\Debug\RS485_BOOT.o .\CortexM0\ARM_GCC_541\Debug\MODBUS_TIMER_CLK.o .\CortexM0\ARM_GCC_541\Debug\MODBUS_TIMER.o .\CortexM0\ARM_GCC_541\Debug\MODBUS_TIMER_PM.o .\CortexM0\ARM_GCC_541\Debug\MODBUS_TIMEOUT.o .\CortexM0\ARM_GCC_541\Debug\RS485_IntClock.o .\CortexM0\ARM_GCC_541\Debug\CyBootAsmGnu.o
+arm-none-eabi-ar.exe: creating .\CortexM0\ARM_GCC_541\Debug\ModBus_4200_Dev.a
+arm-none-eabi-gcc.exe -Wl,--start-group -o "C:\Users\Luke Young\Documents\06_Projects\LoRa_ModBus_Controller\PSOC_ModBus\ModBus_4200_Dev\ModBus_4200_Dev.cydsn\CortexM0\ARM_GCC_541\Debug\ModBus_4200_Dev.elf" .\CortexM0\ARM_GCC_541\Debug\main.o .\CortexM0\ARM_GCC_541\Debug\modbus.o .\CortexM0\ARM_GCC_541\Debug\ringbuffer.o .\CortexM0\ARM_GCC_541\Debug\modbus-local-uart.o .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o .\CortexM0\ARM_GCC_541\Debug\cymetadata.o .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o .\CortexM0\ARM_GCC_541\Debug\cybootloader.o .\CortexM0\ARM_GCC_541\Debug\ModBus_4200_Dev.a -mcpu=cortex-m0 -mthumb -L Generated_Source\PSoC4 -Wl,-Map,.\CortexM0\ARM_GCC_541\Debug/ModBus_4200_Dev.map -T Generated_Source\PSoC4\cm0gcc.ld -specs=nano.specs -Wl,--gc-sections -g -ffunction-sections -Og -ffat-lto-objects -Wl,--end-group
+cyelftool.exe -B "C:\Users\Luke Young\Documents\06_Projects\LoRa_ModBus_Controller\PSOC_ModBus\ModBus_4200_Dev\ModBus_4200_Dev.cydsn\CortexM0\ARM_GCC_541\Debug\ModBus_4200_Dev.elf" --flash_row_size 128 --flash_size 32768 --flash_offset 0x00000000 --flash_array_size 32768
+No ELF section .cychecksum found, creating one
+Application checksum calculated and stored in ELF section .cychecksum
+Checksum calculated and stored in ELF section .cymeta
+cyelftool.exe -S "C:\Users\Luke Young\Documents\06_Projects\LoRa_ModBus_Controller\PSOC_ModBus\ModBus_4200_Dev\ModBus_4200_Dev.cydsn\CortexM0\ARM_GCC_541\Debug\ModBus_4200_Dev.elf"
+Flash used: 12854 of 32768 bytes (39.2%). Bootloader: 4352 bytes. Application: 8374 bytes. Metadata: 128 bytes.
+SRAM used: 1876 of 4096 bytes (45.8%). Stack: 1024 bytes. Heap: 128 bytes.
+--------------- Rebuild Succeeded: 01/29/2020 17:49:40 ---------------

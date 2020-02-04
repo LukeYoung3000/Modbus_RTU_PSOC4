@@ -1,0 +1,12 @@
+# Basic_1_Modbus_RTU_PSOC4
+# 2020-02-04 00:55:01Z
+
+set_location "ClockGenBlock" m0s8clockgenblockcell -1 -1 0
+set_io "RS485_RX(0)" iocell 0 3
+set_io "RS485_TX(0)" iocell 0 0
+set_io "RS485_EN_2(0)" iocell 0 2
+set_io "SW1(0)" iocell 0 7
+set_io "LED1(0)" iocell 1 6
+set_io "\USB_UART:tx(0)\" iocell 4 1
+set_io "\USB_UART:rx(0)\" iocell 4 0
+set_io "RS485_EN_1(0)" iocell 0 1
